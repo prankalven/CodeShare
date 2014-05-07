@@ -1,4 +1,4 @@
-<!-- Article post's content -->
+<!-- Article post content -->
 	<div class="content">
 		<form class="form-horizontal" role="form" action="<?=site_url("article/posting")?>" method="post">
 			<div class="col-sm-6 col-sm-offset-3">
