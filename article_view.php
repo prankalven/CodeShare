@@ -25,7 +25,10 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><a href="<?=site_url("article/edit/".$article->ArticleID)?>">編輯此文章</a></td>
+				<td>
+					<a href="<?=site_url("article/edit/".$article->ArticleID)?>">編輯此文章</a> &middot;
+					<a href="<?=site_url("article/del/".$article->ArticleID)?>">刪除文章</a>
+				</td>
 			</tr>
 		</table>
 		</div>
