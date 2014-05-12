@@ -38,5 +38,73 @@ class Article extends MY_Controller {
 			)
 		);
 	}
+	
+	public function edit($articleID = null){
+		if (!isset($_SESSION["user"]) || $_SESSION["user"] == null ){ 
+			//沒有登入的，導回登入頁面
+			redirect(site_url("/user/login")); 
+			return true;
+		}	
+
+		if ( $articleID == null){
+			show_404("Article not found !");
+			return true;
+		}
+
+
+		$this->load->model("ArticleModel"); //完成取資料動作
+		$article = $this->ArticleModel->get($articleID); 
+
+		if ($article->Author != $_SESSION["user"]->UserID ){
+			show_404("Article not found !"); 
+			//不是作者無法編輯，送他回首頁
+			redirect(site_url("/")); 
+			return true;
+		}
+
+		$this->load->view('article_edit',Array(
+			"pageTitle" => "修改文章 [".$article->Title."]",
+			"article" => $article
+		));	
+	}
+
+	//表單送出後更新資料頁
+	public function update(){
+		$articleID = $this->input->post("articleID");
+ 
+		//就算是進行更新動作，該做的檢查還是都不能少
+		if (!isset($_SESSION["user"]) || $_SESSION["user"] == null ){
+			//沒有登入的，導回登入頁面
+			redirect(site_url("/user/login")); 
+			return true;
+		}		
+ 
+		if ( $articleID == null){
+			show_404("Article not found !");
+			return true;
+		}
+		
+ 
+		$this->load->model("ArticleModel");
+		//完成取資料動作
+		$article = $this->ArticleModel->get($articleID);  
+ 
+		if ($article->Author != $_SESSION["user"]->UserID ){
+			show_404("Article not found !");
+			//不是作者無法編輯，送他回首頁
+			redirect(site_url("/")); 
+			return true;
+		}
+ 
+		$this->ArticleModel->updateArticle(
+			$articleID,
+			$this->input->post("title"),
+			$this->input->post("content")
+		);
+ 
+		//更新完後送他回文章檢視頁面
+		redirect(site_url("article/view/".$articleID));
+ 
+	}
 }
 ?>
