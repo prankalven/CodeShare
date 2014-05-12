@@ -63,6 +63,9 @@ class ArticleModel extends CI_Model {
         $this->db->where('ArticleID', $id);
         $this->db->update('article', $data); 
     }
-   
+    
+    function del($id){
+        $this->db->delete('article', array('ArticleID' => $id)); 
+    }
 }
 ?>
