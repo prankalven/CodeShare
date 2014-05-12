@@ -25,6 +25,12 @@
 				<td> 內容 </td>
 				<td><?=nl2br(htmlspecialchars($article->Content))?></td>
 			</tr>
+			<tr>
+				<td colspan="2">
+					<a href="<?=site_url("article/edit/".$article->ArticleID)?>">編輯此文章</a>
+					<a class="btn" href="<?=site_url("article/del/".$article->ArticleID)?>">刪除文章</a>
+				</td>
+			</tr>
 		</table>
 		<?php } ?>
 		<p>
